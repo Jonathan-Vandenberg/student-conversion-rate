@@ -158,7 +158,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
               value={newMonth}
               onChange={(e) => setNewMonth(e.target.value)}
               placeholder="New Month"
-              className="border p-2 mr-2 black"
+              className="border p-2 mr-2 text-black"
           />
           <button type="submit" className="bg-blue-500 text-white p-2 rounded">
             Add New Month
