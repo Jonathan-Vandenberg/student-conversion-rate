@@ -354,7 +354,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
     { month: 'Feb', potentialStudents: 120, enrolledStudents: 71, efficiency: 59, totalStudents: 136 },
     { month: 'Mar', potentialStudents: 90, enrolledStudents: 72, efficiency: 80, totalStudents: 208 },
     { month: 'Apr', potentialStudents: 110, enrolledStudents: 89, efficiency: 81, totalStudents: 297 },
-    { month: 'May', potentialStudents: 130, enrolledStudents: 73, efficiency: 56, totalStudents: 370 },
+    { month: 'May', potentialStudents: 100, enrolledStudents: 50, efficiency: 50, totalStudents: 343 },
   ]);
   const [newMonth, setNewMonth] = useState('');
   const [potentialStudents, setPotentialStudents] = useState(100);
@@ -393,12 +393,12 @@ const StudentEnrollmentDashboard: React.FC = () => {
   };
 
   return (
-      <div className="p-4 max-w-4xl mx-auto mb-12 h-screen">
-        <h2 className="text-2xl font-bold mb-4 text-black">Student Enrollment Success Monitoring</h2>
+      <div className="p-8 max-w-4xl mx-auto mb-12 h-screen">
+        <h2 className="text-2xl font-bold mb-4 text-black text-center">Success Monitoring Demo - Yen Bui</h2>
 
         <div className="flex gap-3">
           <div className="mb-2 w-1/2">
-            <h3 className="text-xl font-semibold mb-2 text-slate-600">Total Students Over Time</h3>
+            <h3 className="text-md font-semibold mb-2 text-center text-slate-600">Total Students</h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -412,7 +412,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
           </div>
 
           <div className="mb-2 w-1/2">
-            <h3 className="text-xl font-semibold mb-2 text-slate-600">Student Conversion Efficiency Over Time</h3>
+            <h3 className="text-md font-semibold mb-2 text-slate-600 text-center">Lead Conversion Efficiency</h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -426,9 +426,9 @@ const StudentEnrollmentDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-2">
+        <div className="mt-6 rounded bg-slate-50 p-3 mx-auto">
           <h3 className="text-lg font-semibold mb-2 text-slate-600">Adjust Current Month&apos;s Data</h3>
-          <div className="mb-4">
+          <div className="mb-4 w-1/2">
             <label className="block mb-2 text-black">Potential Students: {potentialStudents}</label>
             <Slider
                 value={[potentialStudents]}
@@ -437,7 +437,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
                 step={1}
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 w-1/2">
             <label className="block mb-2 text-black">Enrolled Students: {enrolledStudents}</label>
             <Slider
                 value={[enrolledStudents]}
@@ -446,7 +446,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
                 step={1}
             />
           </div>
-          <Button onClick={updateLatestMonth}>
+          <Button className={'bg-blue-500 px-2 py-1 rounded'} onClick={updateLatestMonth}>
             Update Latest Month
           </Button>
         </div>
@@ -459,7 +459,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
               placeholder="New Month"
               className="border p-2 mr-2 text-black"
           />
-          <Button type="submit">
+          <Button className={'bg-blue-800 px-2 py-1 rounded'} type="submit">
             Add New Month
           </Button>
         </form>
