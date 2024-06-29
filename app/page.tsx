@@ -39,17 +39,18 @@ interface DataPoint {
   potentialStudents: number;
   enrolledStudents: number;
   efficiency: number;
+  totalStudents: number;
 }
 
 const initialData: DataPoint[] = [
-  { month: 'Jan', potentialStudents: 100, enrolledStudents: 65, efficiency: 65 },
-  { month: 'Feb', potentialStudents: 120, enrolledStudents: 71, efficiency: 59 },
-  { month: 'Mar', potentialStudents: 90, enrolledStudents: 72, efficiency: 80 },
-  { month: 'Apr', potentialStudents: 110, enrolledStudents: 89, efficiency: 81 },
-  { month: 'May', potentialStudents: 130, enrolledStudents: 73, efficiency: 56 },
+  { month: 'Jan', potentialStudents: 100, enrolledStudents: 65, efficiency: 65, totalStudents: 65 },
+  { month: 'Feb', potentialStudents: 120, enrolledStudents: 71, efficiency: 59, totalStudents: 136 },
+  { month: 'Mar', potentialStudents: 90, enrolledStudents: 72, efficiency: 80, totalStudents: 208 },
+  { month: 'Apr', potentialStudents: 110, enrolledStudents: 89, efficiency: 81, totalStudents: 297 },
+  { month: 'May', potentialStudents: 130, enrolledStudents: 73, efficiency: 56, totalStudents: 370 },
 ];
 
-const StudentConversionGraph: React.FC = () => {
+const StudentEnrollmentDashboard: React.FC = () => {
   const [data, setData] = useState<DataPoint[]>(initialData);
   const [newMonth, setNewMonth] = useState('');
   const [potentialStudents, setPotentialStudents] = useState(100);
@@ -59,11 +60,13 @@ const StudentConversionGraph: React.FC = () => {
     e.preventDefault();
     if (newMonth) {
       const efficiency = Math.round((enrolledStudents / potentialStudents) * 100);
+      const lastTotalStudents = data[data.length - 1].totalStudents;
       const newDataPoint: DataPoint = {
         month: newMonth,
         potentialStudents,
         enrolledStudents,
-        efficiency
+        efficiency,
+        totalStudents: lastTotalStudents + enrolledStudents
       };
       setData([...data, newDataPoint]);
       setNewMonth('');
@@ -73,11 +76,13 @@ const StudentConversionGraph: React.FC = () => {
   const updateLatestMonth = () => {
     if (data.length > 0) {
       const efficiency = Math.round((enrolledStudents / potentialStudents) * 100);
+      const previousTotalStudents = data.length > 1 ? data[data.length - 2].totalStudents : 0;
       const updatedData = [...data.slice(0, -1), {
         ...data[data.length - 1],
         potentialStudents,
         enrolledStudents,
-        efficiency
+        efficiency,
+        totalStudents: previousTotalStudents + enrolledStudents
       }];
       setData(updatedData);
     }
@@ -85,19 +90,41 @@ const StudentConversionGraph: React.FC = () => {
 
   return (
       <div className="p-4 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold mb-4 text-black">Student Conversion Efficiency Over Time</h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="efficiency" stroke="#8884d8" activeDot={{ r: 8 }} />
-          </LineChart>
-        </ResponsiveContainer>
+        <h2 className="text-2xl font-bold mb-4 text-black">Student Enrollment Success Monitoring</h2>
 
-        <div className="mt-8">
+        <div className={'flex gap-3'}>
+          {/* Total Students Graph */}
+          <div className="mb-2">
+            <h3 className="text-xl font-semibold mb-2">Total Students Over Time</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="totalStudents" stroke="#82ca9d" activeDot={{ r: 8 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Efficiency Graph */}
+          <div className="mb-2">
+            <h3 className="text-xl font-semibold mb-2">Student Conversion Efficiency Over Time</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="efficiency" stroke="#8884d8" activeDot={{ r: 8 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="mt-2">
           <h3 className="text-lg font-semibold mb-2">Adjust Latest Month&apos;s Data</h3>
           <div className="mb-4">
             <label className="block mb-2 text-black">Potential Students: {potentialStudents}</label>
@@ -131,7 +158,7 @@ const StudentConversionGraph: React.FC = () => {
               value={newMonth}
               onChange={(e) => setNewMonth(e.target.value)}
               placeholder="New Month"
-              className="border p-2 mr-2"
+              className="border p-2 mr-2 black"
           />
           <button type="submit" className="bg-blue-500 text-white p-2 rounded">
             Add New Month
@@ -141,4 +168,4 @@ const StudentConversionGraph: React.FC = () => {
   );
 };
 
-export default StudentConversionGraph;
+export default StudentEnrollmentDashboard;
