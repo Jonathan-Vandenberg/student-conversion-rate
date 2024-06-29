@@ -94,7 +94,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
 
         <div className={'flex gap-3'}>
           {/* Total Students Graph */}
-          <div className="mb-2">
+          <div className="mb-2 w-1/2">
             <h3 className="text-xl font-semibold mb-2">Total Students Over Time</h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -109,7 +109,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
           </div>
 
           {/* Efficiency Graph */}
-          <div className="mb-2">
+          <div className="mb-2 w-1/2">
             <h3 className="text-xl font-semibold mb-2">Student Conversion Efficiency Over Time</h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
