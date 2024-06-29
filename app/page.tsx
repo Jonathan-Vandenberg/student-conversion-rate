@@ -427,7 +427,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
         </div>
 
         <div className="mt-2">
-          <h3 className="text-lg font-semibold mb-2 text-slate-600">Adjust Current Month's Data</h3>
+          <h3 className="text-lg font-semibold mb-2 text-slate-600">Adjust Current Month&apos;s Data</h3>
           <div className="mb-4">
             <label className="block mb-2 text-black">Potential Students: {potentialStudents}</label>
             <Slider
