@@ -131,7 +131,7 @@ const StudentEnrollmentDashboard: React.FC = () => {
             <Slider
                 value={[potentialStudents]}
                 onValueChange={(value) => setPotentialStudents(value[0])}
-                max={200}
+                max={100}
                 step={1}
             />
           </div>
